@@ -1,1 +1,1 @@
-python3 cmd_1.py VFS.tar
+python3 cmd_1.py VFS.tar test.script
