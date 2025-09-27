@@ -29,5 +29,5 @@ class Ls(Command):
         return child_dirs
 
     def handle(self, args = []):
-        print(self._get_child_dir())
+        print('\t', *self._get_child_dir())
         return self.current_path

@@ -20,43 +20,52 @@ def main():
     print("Имя VFS:", vfs_name)
     print("Переданные аргументы:", *script_args)
 
-    # for arg in script_args[1:]:
-    #     f = open(arg, 'r')
-    #     if f:
-    #         for s in f.readlines():
-    #             script_content.append(s.strip())
+    script_content = []
+    script_index = 0
+    script_errors = []
+    for arg in script_args:
+        f = open(arg, 'r')
+        if f:
+            for s in f.readlines():
+                script_content.append(s.strip())
+        f.close()
         
+    if len(script_content) != 0:
+        is_script = True
+    else: 
+        is_script = False
 
-    # if len(script_content) != 0:
-    #     is_script = True
-
-    # print(script_content)
+    print(script_content)
 
     VFS = (os.path.basename(vfs_name) + os.path.dirname(__file__))
     
-    current_path = '/home'
+    current_path = "/home"
 
     while True:
         try:
-
-            # if script_index < len(script_content):
-            #     cmd_input = script_content[script_index]
-            #     print(VFS + "> ", cmd_input)
-            #     script_index += 1
-            # else:
-            cmd_input = input(vfs_name + current_path + "> ")
+            if script_index == len(script_content):
+                is_script = False
+                if len(script_errors) != 0:
+                    print("errors in script: ", *script_errors)
+                script_index += 1
+                
+            if script_index < len(script_content):
+                cmd_input = script_content[script_index]
+                print(vfs_name + current_path + "> ", cmd_input)
+                script_index += 1
+            else:
+                cmd_input = input(vfs_name + current_path + "> ")
 
             real_command_args = []
             list_command_args = cmd_input.split()
 
-            for i, item in enumerate(list_command_args):
+            for item in list_command_args:
                 if item[0] == "$":
                     varname = item[1:]
                     if os.environ.get(varname) != None:
                         real_command_args.extend(os.environ.get(varname).split())     
                     else:
                         real_command_args.append(item)
-                        list_command_args[i] = os.environ.get(varname)
                 else: 
                     real_command_args.append(item)
 
@@ -69,8 +78,11 @@ def main():
             if command in commands:
                 current_path = commands[command](current_path, vfs_name).handle(args)
             else: 
-                print(f"unknown cmd: {command}")
-            
+                if is_script:
+                    script_errors.append(command)
+                else:
+                    print(f"unknown cmd: {command}")
+
         except Exception as e:
             print(f"error: {e}")
 

@@ -37,8 +37,10 @@ class Cd(Command):
             self.current_path += ('/' + arg)
         elif arg == "..":
             self.current_path = self._one_dir_back()
-        elif arg == '.' or arg == '':
+        elif arg == '.':
             return self.current_path
+        elif arg == '~' or arg == '':
+            self.current_path = "/home"
         else: 
             print("incorrect path")
         return self.current_path
