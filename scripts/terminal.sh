@@ -1,1 +1,1 @@
-python3 main.py VFS.tar ./scripts/test.script ./scripts/test1.script
+python3 main.py ./vfs/disk.zip ./scripts/test.script ./scripts/test1.script

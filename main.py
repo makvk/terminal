@@ -1,15 +1,9 @@
 import os
 import sys
-import tarfile
+import zipfile
 from command_handlers import commands
 
 def main():
-    tar = tarfile.open("./vfs/disk.tar")
-    for member in tar:
-        print(member.path)
-
-    tar.close()
-    
     shell_string = sys.argv
 
     cmd_name = shell_string[0]
@@ -37,12 +31,13 @@ def main():
 
     print(script_content)
 
-    VFS = (os.path.basename(vfs_name) + os.path.dirname(__file__))
+    # VFS = (os.path.basename(vfs_name) + os.path.dirname(__file__))
     
-    current_path = "/home"
+    current_path = ""
 
     while True:
         try:
+            vfs_invite = vfs_name.split('/')[-1]
             if script_index == len(script_content):
                 is_script = False
                 if len(script_errors) != 0:
@@ -51,10 +46,10 @@ def main():
                 
             if script_index < len(script_content):
                 cmd_input = script_content[script_index]
-                print(vfs_name + current_path + "> ", cmd_input)
+                print(vfs_invite + current_path + "> ", cmd_input)
                 script_index += 1
             else:
-                cmd_input = input(vfs_name + current_path + "> ")
+                cmd_input = input(vfs_invite + current_path + "> ")
 
             real_command_args = []
             list_command_args = cmd_input.split()
