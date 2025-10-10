@@ -1,6 +1,5 @@
 import os
 import sys
-import zipfile
 from command_handlers import commands
 
 def main():
@@ -28,10 +27,6 @@ def main():
         is_script = True
     else: 
         is_script = False
-
-    print(script_content)
-
-    # VFS = (os.path.basename(vfs_name) + os.path.dirname(__file__))
     
     current_path = ""
 

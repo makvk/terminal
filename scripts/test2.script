@@ -1,0 +1,5 @@
+whoami
+cd ~
+ls
+ls projects
+echo a b c d

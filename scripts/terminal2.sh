@@ -1,0 +1,1 @@
+python3 main.py ./vfs/disk2.zip ./scripts/test2.script
