@@ -69,7 +69,7 @@ cd vfs-shell
 python3 main.py ./vfs/disk.zip
 ```
 
-###📟 Пример:
+### 📟 Пример:
 ```bash
 disk> ls
 📁home 📁bin 📄readme.txt
